@@ -39,9 +39,10 @@
 
 ```
 .
+├── main.py               # точка входа: python main.py
 ├── src
 │   ├── __init__.py
-│   ├── main.py           # демонстрационный запуск
+│   ├── main.py           # демонстрационный сценарий
 │   ├── utils.py          # чтение Excel, разбор дат, границы периодов
 │   ├── external_api.py   # курсы валют и цены акций, кеш, обработка ошибок
 │   ├── views.py          # JSON-ответы для страниц
@@ -57,6 +58,7 @@
 │   ├── test_utils.py
 │   ├── test_views.py
 │   ├── test_services.py
+│   ├── test_external_api.py
 │   └── test_reports.py
 ├── user_settings.json
 ├── .env_template
@@ -68,25 +70,30 @@
 
 ## Установка
 
-```bash
-python -m venv .venv
-.venv\Scripts\activate          # Windows
-pip install -e ".[dev]"         # или: poetry install
+Из корня проекта (Windows, Python 3.12):
+
+```powershell
+py -3.12 -m venv .venv
+.venv\Scripts\activate
+pip install pandas openpyxl xlrd requests python-dotenv pytest
 ```
 
-Если используется Poetry:
+или через Poetry:
 
 ```bash
 poetry install
-poetry run python -m src.main
 ```
 
 ## Запуск
 
-```bash
-python -m src.main
-python -m src.main --date "2021-12-31 16:44:00" --period M
+```powershell
+python main.py
+python main.py --date "2021-12-31 16:44:00" --period M
 ```
+
+`main.py` лежит в корне проекта — запускать нужно из корня. Без `--date`
+берётся дата последней операции в выписке (31.12.2021), поэтому вывод
+сразу содержательный.
 
 Скрипт печатает JSON главной страницы и страницы «События», результат
 работы всех сервисов и сохраняет три отчёта в `reports/`.

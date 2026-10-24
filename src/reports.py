@@ -168,7 +168,7 @@ def spending_by_weekday(
     if daily.empty:
         return pd.DataFrame(columns=["День недели", "Средние траты"])
 
-    by_weekday = daily.groupby(daily.index.weekday).mean()
+    by_weekday = daily.groupby(daily.index.day_of_week).mean()
     rows = [
         {
             "День недели": name,
@@ -192,7 +192,7 @@ def spending_by_workday(
     if daily.empty:
         return pd.DataFrame(columns=columns)
 
-    is_workday = daily.index.weekday < 5
+    is_workday = daily.index.day_of_week < 5
     values = {
         "Рабочий день": float(daily[is_workday].mean()) if is_workday.any() else 0.0,
         "Выходной день": (

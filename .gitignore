@@ -16,6 +16,10 @@ data/cache/
 logs/
 reports/
 
+# Временные файлы pip/pytest
+pip-*/
+pytest-of-*/
+
 # IDE
 .idea/
 .vscode/
